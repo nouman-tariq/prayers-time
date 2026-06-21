@@ -280,10 +280,12 @@ public class MainActivity extends AppCompatActivity {
                     android.icu.util.IslamicCalendar.CalculationType.ISLAMIC_UMALQURA);
             hijri.setTimeInMillis(now.getTimeInMillis());
 
-            android.icu.text.SimpleDateFormat sdf =
-                    new android.icu.text.SimpleDateFormat("d MMMM y G", Locale.getDefault());
-            sdf.setCalendar(hijri);
-            return sdf.format(hijri.getTime());
+            // Build the formatter FROM the Islamic calendar so it uses Hijri month
+            // names and the "AH" era (otherwise it would print Gregorian names like
+            // "January" and "BC").
+            android.icu.text.DateFormat df = android.icu.text.DateFormat.getDateInstance(
+                    hijri, android.icu.text.DateFormat.LONG, Locale.getDefault());
+            return df.format(hijri.getTime());
         } catch (Exception e) {
             Timber.w(e, "Hijri date formatting failed");
             return null;
