@@ -39,4 +39,4 @@ Download it from the run's **Artifacts**, or build locally:
 Based on **Bilal** by Djalel Chefrour, which uses the PrayerTime library from the
 [Arab Eyes](http://arabeyes.org) Islamic Tools project.
 
-Licensed under the **GNU General Public License v3.0** — see [LICENSE](./LICENSE).
+Licensed under the **GNU General Public License v3.0** — see [COPYING](./COPYING).
