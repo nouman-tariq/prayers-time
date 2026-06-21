@@ -67,7 +67,6 @@ import java.text.DateFormat;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone;
 
 import timber.log.Timber;
 
@@ -276,8 +275,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
         try {
-            android.icu.util.IslamicCalendar hijri = new android.icu.util.IslamicCalendar(
-                    TimeZone.getDefault(), Locale.getDefault());
+            android.icu.util.IslamicCalendar hijri = new android.icu.util.IslamicCalendar();
             hijri.setCalculationType(
                     android.icu.util.IslamicCalendar.CalculationType.ISLAMIC_UMALQURA);
             hijri.setTimeInMillis(now.getTimeInMillis());
