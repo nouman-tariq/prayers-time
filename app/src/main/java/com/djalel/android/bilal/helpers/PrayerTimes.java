@@ -113,7 +113,7 @@ public class PrayerTimes {
     public static String formatPrayerTime(GregorianCalendar cal, int round)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(
-            round != 0 ? "HH:mm" : "HH:mm:ss", Locale.getDefault());
+            round != 0 ? "h:mm a" : "h:mm:ss a", Locale.getDefault());
         return sdf.format(cal.getTime());
     }
 
