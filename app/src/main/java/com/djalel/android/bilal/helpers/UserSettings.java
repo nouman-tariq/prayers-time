@@ -47,7 +47,7 @@ public class UserSettings {
 
     public static boolean isAthanEnabled(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPref.getBoolean("notifications_athan", true);
+        return sharedPref.getBoolean("notifications_athan", false);
     }
 
     public static void setMuezzin(Context context, String newValue) {

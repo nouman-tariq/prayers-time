@@ -9,7 +9,7 @@
         app:dependency="notifications_prayer_time"
         app:key="notifications_athan"
         app:title="@string/pref_title_athan"
-        app:defaultValue="true" />
+        app:defaultValue="false" />
 
 
     <ListPreference
