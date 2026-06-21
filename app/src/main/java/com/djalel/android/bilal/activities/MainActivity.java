@@ -67,6 +67,7 @@ import java.text.DateFormat;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import timber.log.Timber;
 
@@ -267,6 +268,30 @@ public class MainActivity extends AppCompatActivity {
         mTextViewDate.setOnClickListener(cityListener);
     }
 
+    // Returns the Islamic (Hijri, Umm al-Qura) date formatted for the current locale,
+    // e.g. "6 Muharram 1447 AH". Uses android.icu (API 24+); returns null on older devices.
+    private String formatHijriDate(GregorianCalendar now)
+    {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            return null;
+        }
+        try {
+            android.icu.util.IslamicCalendar hijri = new android.icu.util.IslamicCalendar(
+                    TimeZone.getDefault(), Locale.getDefault());
+            hijri.setCalculationType(
+                    android.icu.util.IslamicCalendar.CalculationType.ISLAMIC_UMALQURA);
+            hijri.setTimeInMillis(now.getTimeInMillis());
+
+            android.icu.text.SimpleDateFormat sdf =
+                    new android.icu.text.SimpleDateFormat("d MMMM y G", Locale.getDefault());
+            sdf.setCalendar(hijri);
+            return sdf.format(hijri.getTime());
+        } catch (Exception e) {
+            Timber.w(e, "Hijri date formatting failed");
+            return null;
+        }
+    }
+
     private void updatePrayerViews()
     {
         if (PrayerTimesManager.prayerTimesNotAvailable()) {
@@ -279,8 +304,11 @@ public class MainActivity extends AppCompatActivity {
         GregorianCalendar now = new GregorianCalendar();
         mTextViewCity.setText(UserSettings.getCityName(this));
 
-        mTextViewDate.setText(DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
-                .format(now.getTime()));
+        String gregorianDate = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
+                .format(now.getTime());
+        String hijriDate = formatHijriDate(now);
+        mTextViewDate.setText(hijriDate == null ? gregorianDate
+                : gregorianDate + "\n" + hijriDate);
 
         for (i = 0; i < Prayer.NB_PRAYERS + 1; i++) {
             mTextViewPrayers[i][1].setVisibility(View.INVISIBLE);
