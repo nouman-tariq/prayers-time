@@ -5,16 +5,22 @@ def keystorePropertiesFile = rootProject.file("keystore.properties")
 // Initialize a new Properties() object called keystoreProperties.
 def keystoreProperties = new Properties()
 
-// Load your keystore.properties file into the keystoreProperties object.
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// Load your keystore.properties file into the keystoreProperties object,
+// but only if it exists (release signing). Debug/CI builds don't need it.
+def hasKeystore = keystorePropertiesFile.exists()
+if (hasKeystore) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
-    signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+    if (hasKeystore) {
+        signingConfigs {
+            config {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
         }
     }
     compileSdk 33
@@ -29,7 +35,9 @@ android {
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+            if (hasKeystore) {
+                signingConfig signingConfigs.config
+            }
         }
     }
     bundle {
