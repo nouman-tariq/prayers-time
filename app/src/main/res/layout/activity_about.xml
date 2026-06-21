@@ -10,7 +10,7 @@
         android:id="@+id/about_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutDirection="rtl"
+        android:layoutDirection="locale"
         android:text="@string/pref_txt_about"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         android:padding="@dimen/about_padding"

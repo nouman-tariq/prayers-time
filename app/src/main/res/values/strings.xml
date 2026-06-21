@@ -70,11 +70,14 @@
 
     <string name="pref_title_about">About</string>
     <string name="pref_txt_about">
-Athan Bilal is a free software released under the GNU General Public License version 3.0.
-It uses prayer time calculation code from the Islamic Tools Library released by the Arab Eyes project.
-Its source is available at github.com/cdjalel/Bilal.\n
+Prayers Time is free software released under the GNU General Public License version 3.0.\n
 \n
-Athan Bilal contains the coordinates of 23784 cities around the world, extracted from the geoname.org
+It is a fork of Bilal by Djalel Chefrour (github.com/cdjalel/Bilal) and uses prayer time
+calculation code from the Islamic Tools Library released by the Arab Eyes project.
+This version shows the Hijri date, uses a 12-hour (AM/PM) clock, and keeps the Athan off by default.
+Its source is available at github.com/nouman-tariq/prayers-time.\n
+\n
+Prayers Time contains the coordinates of 23784 cities around the world, extracted from the geoname.org
 site under the Creative Commons Attribution 4.0 License.\n
 \n
 The background image was designed by Freepick and licensed via www.freepick.com.\n
